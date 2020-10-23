@@ -1,0 +1,131 @@
+@charset "UTF-8";
+@font-face {
+	font-family: 'titulo';
+	src: url("../resources/font/BungeeOutline-Regular.ttf");
+}
+
+body{
+    background-color: rgb(30,144,255);
+}
+
+#cabecalho{
+    /*cor, borda*/
+    background: rgba(255,255,255,.5);
+    border: 1px solid darkgray;
+    /*espacamento e margem*/
+    padding: 30px;
+    margin-bottom: 10px;
+    /*tamanho*/
+    height: 40px;
+}
+
+#barraLateral{
+    /*cor, borda*/
+    /*border: thin solid lightgray;*/
+    /*espacamento*/
+    padding: 3px;
+    /*tamanho*/
+    width: 35px;
+    /*texto*/
+    text-align: center;
+}
+
+.imgmenu {
+    background-color: #FFFFFF;
+    background: rgba(255,255,255,.5);
+    padding: 5px;
+    border-radius: 12px;
+    border: 1px solid darkgray;
+}
+#conteudo{
+    /*cor, borda*/
+    border: thin solid lightgray;
+    background: rgba(235,235,235,.9);
+    box-shadow: 0px 0px 18px rgba(0,0,0,.5);
+    border-radius: 4px;
+    
+    /*posicionamento*/
+    position: absolute;
+    top: 120px;
+    right: 80px;
+    left: 60px;
+    height: calc(100% - 170px);
+    /*espaçamento*/
+    padding: 5px;
+    /*outros*/
+    overflow: auto;
+}
+
+.ui-widget{
+	font-size: 85%;
+	/*font-style: italic;*/
+}
+
+.fields{
+	border-radius: 4px;
+	margin: 0px 5px 0px 5px;
+}
+
+#rodape{
+    /*cor, borda*/
+    border: thin solid lightgray;
+    background: darkgray;
+    /*posicionamento*/
+    position: absolute;
+    bottom: 0;
+    /*outros*/
+    width: calc(100% - 27px);
+    height: 20px;
+    /*espaçamento*/
+    padding: 5px;
+}
+
+.header{
+    font-size: 3.1em;
+    text-align: center;
+    font-family:fantasy ;
+    color: #DCDCDC;
+    text-shadow: 0px 0px 12px rgba(0,0,0,.9);
+}
+
+.logo{
+    /*posição*/
+    position: absolute;
+    /*background-color: white;*/
+    border-radius: 10px;
+    top: 5px;
+    left: 40px;
+    height: 100px;
+    width: 100px;
+    z-index: 1;
+   /* box-shadow: 2px 2px 4px rgba(0,0,0,.5);*/
+}
+
+.logoPavani{
+    /*posição*/
+    float: right;
+    top: 10px;
+    left: 40px;
+   
+}
+
+.footer{
+    font-size: 1em;
+    color: rgba(235,235,235,.9);
+    text-align: center;
+    font-family: inherit;
+    font-weight: bold;
+}
+
+.labelTitulo{
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 1.1em;
+}
+
+.label{
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: .9em;
+    color: tomato;
+}

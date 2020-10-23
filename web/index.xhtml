@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="/templates/modelo.xhtml">
+        <ui:define name="title">
+            PDV Controle - Caixas Matriz
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="formularioTabelaPC">
+                <p:fieldset class="fields" legend="Caixas MATRiZ">
+
+                    <br />
+                    <p:dataTable id="tabelaPC" value="#{computadorBean.computersMatriz}"
+                                 var="caixa" >
+
+                        <p:column width="70">
+                            <f:facet name="header">PDV</f:facet>
+                            <center>
+                                <h:outputText value="#{caixa.pdv.nome}" style="font-weight: bolder; font-size: 16px;" />
+                            </center>
+                        </p:column>
+
+                        <!-- <p:column>
+                             <f:facet name="header">Id</f:facet>
+                             <h:outputText value="#{caixa.id}" />
+                         </p:column>-->
+
+                        <p:column width="70">
+                            <f:facet name="header">PC</f:facet>
+                            <h:outputText value="#{caixa.nome}" style="font-weight: bold;"/>
+                        </p:column>
+                        <p:column width="70">
+                            <f:facet name="header">Id/Tag</f:facet>
+                            <h:outputText value="#{caixa.tag}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Processador</f:facet>
+                            <h:outputText value="#{caixa.processador}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Memória</f:facet>
+                            <h:outputText value="#{caixa.memoria}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">HD</f:facet>
+                            <h:outputText value="#{caixa.hd}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet class="fields" name="header">Tools</f:facet>
+                            <center>
+                                <h:commandButton id="editar" image="resources\img\edit.png"
+                                                 action="#{computadorBean.editarPC(caixa)}"/>&nbsp;
+                                <p:tooltip for="editar" value="editar" position="top"/> 
+                                <h:commandButton id="inativar" image="resources\img\desativa.png"
+                                                 action="#{computadorBean.desativarPC(caixa)}"/>&nbsp;
+                                <p:tooltip for="inativar" value="desativar" position="top"/> 
+                                <h:commandButton id="excluir" image="resources\img\delete.png"
+                                                 action="#{computadorBean.excluircPC(caixa)}"/> 
+                                <p:tooltip for="excluir" value="excluir" position="top"/>                                               
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                </p:fieldset>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+</html>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:body>
+        <ui:composition>
+            <h:form>
+                <h:commandLink id="matrizId" action="index?faces-redirect=true" immediate="true">
+                    <h:graphicImage class="imgmenu" library="img" name="caixas.png"/>
+                </h:commandLink>
+                <p:tooltip for="matrizId" value="caixa Matriz" position="top"/>
+                <br/>
+
+                <h:commandLink id="novoId" action="#{computadorBean.novoPC()}" immediate="true">
+                    <h:graphicImage class="imgmenu" library="img" name="new.png"/>
+                </h:commandLink>
+                <p:tooltip for="novoId" value="Novo Matriz" position="top"/>
+                <br/>
+                <hr/>
+                
+                <h:commandLink id="filialId" action="caixaFilial?faces-redirect=true" immediate="true">
+                    <h:graphicImage class="imgmenu" library="img" name="caixasFilial.png"/>
+                </h:commandLink>
+                <p:tooltip for="filialId" value="caixa Filial" position="top"/>
+                <br/>
+
+                <h:commandLink id="novoIdfilial" action="#{computadorBean.novoPcFilial()}" immediate="true">
+                    <h:graphicImage class="imgmenu" library="img" name="newFilial.png"/>
+                </h:commandLink>
+                <p:tooltip for="novoIdfilial" value="Novo Filial" position="top"/>
+                <br/>
+                <hr/>
+
+                <h:commandLink id="todosId" action="caixaTodos?faces-redirect=true" immediate="true">
+                    <h:graphicImage library="img" name="list.png"/>
+                </h:commandLink>
+                <p:tooltip for="todosId" value="Desativados" position="top"/>
+            </h:form>
+        </ui:composition>
+
+    </h:body>
+</html>
