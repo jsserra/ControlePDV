@@ -38,6 +38,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 @ManagedBean(name = "computadorBean")
 @SessionScoped
 //@ViewScoped
+//@RequestScoped
 public class ComputerBean implements Serializable {
 
     private Computer pc = new Computer();
