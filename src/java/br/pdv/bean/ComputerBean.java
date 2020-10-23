@@ -34,7 +34,7 @@ import javax.faces.event.AjaxBehaviorEvent;
  *
  * @author jsser
  */
-//@RequestScoped
+
 @ManagedBean(name = "computadorBean")
 @SessionScoped
 //@ViewScoped
