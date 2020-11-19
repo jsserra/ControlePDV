@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @font-face {
-	font-family: 'titulo';
-	src: url("../resources/font/BungeeOutline-Regular.ttf");
+    font-family: 'titulo';
+    src: url("../resources/font/BungeeOutline-Regular.ttf");
 }
 
 body{
@@ -43,7 +43,7 @@ body{
     background: rgba(235,235,235,.9);
     box-shadow: 0px 0px 18px rgba(0,0,0,.5);
     border-radius: 4px;
-    
+
     /*posicionamento*/
     position: absolute;
     top: 120px;
@@ -57,13 +57,13 @@ body{
 }
 
 .ui-widget{
-	font-size: 85%;
-	/*font-style: italic;*/
+    font-size: 85%;
+    /*font-style: italic;*/
 }
 
 .fields{
-	border-radius: 4px;
-	margin: 0px 5px 0px 5px;
+    border-radius: 4px;
+    margin: 0px 5px 0px 5px;
 }
 
 #rodape{
@@ -98,7 +98,7 @@ body{
     height: 100px;
     width: 100px;
     z-index: 1;
-   /* box-shadow: 2px 2px 4px rgba(0,0,0,.5);*/
+    /* box-shadow: 2px 2px 4px rgba(0,0,0,.5);*/
 }
 
 .logoPavani{
@@ -106,7 +106,7 @@ body{
     float: right;
     top: 10px;
     left: 40px;
-   
+
 }
 
 .footer{
@@ -128,4 +128,48 @@ body{
     font-family: sans-serif;
     font-size: .9em;
     color: tomato;
+}
+
+#cartoes{
+    position: relative;
+    overflow: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.cartao{
+    display: inline-block;
+    width: 28%;
+    height: 150px;
+    margin: 10px 20px;
+    text-align: left;
+    padding: 5px;    
+    border-radius: 4px;
+    border: 1px solid dimgray;
+    box-shadow: 0px 0px 8px rgba(0,0,0,.4);
+}
+
+.cartao span{    
+    font-family: arial;
+    font-weight: bold;
+    color: rgb(74,74,74);
+}
+
+#cielo{
+    
+}
+
+#rede{
+    
+}
+
+#getnet{
+    
+}
+
+.logoCartao{
+    border-radius: 5px;
+    left: 10px;
+    height: 34px;
+    width: 100px;
 }

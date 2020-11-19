@@ -26,11 +26,6 @@
                             </center>
                         </p:column>
 
-                        <!-- <p:column>
-                             <f:facet name="header">Id</f:facet>
-                             <h:outputText value="#{caixa.id}" />
-                         </p:column>-->
-
                         <p:column width="70">
                             <f:facet name="header">PC</f:facet>
                             <h:outputText value="#{caixa.nome}" style="font-weight: bold;"/>
@@ -51,22 +46,28 @@
                             <f:facet name="header">HD</f:facet>
                             <h:outputText value="#{caixa.hd}" />
                         </p:column>
-                        <p:column>
-                            <f:facet class="fields" name="header">Tools</f:facet>
-                            <center>
-                                <h:commandButton id="editar" image="resources\img\edit.png"
-                                                 action="#{computadorBean.editarPC(caixa)}"/>&nbsp;
-                                <p:tooltip for="editar" value="editar" position="top"/> 
-                                <h:commandButton id="inativar" image="resources\img\desativa.png"
-                                                 action="#{computadorBean.desativarPC(caixa)}"/>&nbsp;
-                                <p:tooltip for="inativar" value="desativar" position="top"/> 
-                                <h:commandButton id="excluir" image="resources\img\delete.png"
-                                                 action="#{computadorBean.excluircPC(caixa)}"/> 
-                                <p:tooltip for="excluir" value="excluir" position="top"/>                                               
-                            </center>
+                        <p:column width="30" style="text-align: center;">                     
+                            <f:facet name="header">LOGs</f:facet>
+                            <h:outputText value="#{computadorBean.getQtdLogPc(caixa)}" />
                         </p:column>
+                        <p:column width="100">
+                                <f:facet class="fields" name="header">Tools</f:facet>
+                                <center>
+                                    <h:commandButton id="editar" image="resources\img\edit.png"
+                                                     action="#{computadorBean.editarPC(caixa)}"/>&nbsp;
+                                    <p:tooltip for="editar" value="editar" position="top"/> 
+                                    <h:commandButton id="inativar" image="resources\img\desativa.png"
+                                                     action="#{computadorBean.desativarPC(caixa)}"/>&nbsp;
+                                    <p:tooltip for="inativar" value="desativar" position="top"/> 
+                                    <h:commandButton id="excluir" image="resources\img\delete.png"
+                                                     action="#{computadorBean.excluircPC(caixa)}"/> 
+                                    <p:tooltip for="excluir" value="excluir" position="top"/>                                               
+                                </center>
+                            </p:column>
                     </p:dataTable>
                 </p:fieldset>
+                <br/>
+                &nbsp;<p:commandButton action="#{computadorBean.novoPC()}" value="Cadastrar PC" immediate="true"/>
             </h:form>
         </ui:define>
 

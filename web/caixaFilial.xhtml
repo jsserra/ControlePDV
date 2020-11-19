@@ -51,7 +51,11 @@
                             <f:facet name="header">HD</f:facet>
                             <h:outputText value="#{caixa.hd}" />
                         </p:column>
-                        <p:column>
+                        <p:column width="30" style="text-align: center;">                     
+                            <f:facet name="header">LOGs</f:facet>
+                            <h:outputText value="#{computadorBean.getQtdLogPc(caixa)}" />
+                        </p:column>
+                        <p:column width="100">
                             <f:facet class="fields" name="header">Tools</f:facet>
                             <center>
                                 <h:commandButton id="editar" image="resources\img\edit.png"

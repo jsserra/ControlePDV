@@ -8,9 +8,11 @@ package br.pdv.bean;
 import br.pdv.dao.ComputerDao;
 import br.pdv.dao.LogDao;
 import br.pdv.dao.PdvDao;
+import br.pdv.dao.PosDao;
 import br.pdv.model.Computer;
 import br.pdv.model.Log;
 import br.pdv.model.Pdv;
+import br.pdv.model.PosTeste;
 import br.pdv.model.enums.TipoLog;
 import br.pdv.util.pdvException;
 import java.io.Serializable;
@@ -29,16 +31,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.event.AjaxBehaviorEvent;
 
-
 /**
  *
  * @author jsser
  */
-
+@SuppressWarnings("deprecation")
 @ManagedBean(name = "computadorBean")
 @SessionScoped
-//@ViewScoped
-//@RequestScoped
 public class ComputerBean implements Serializable {
 
     private Computer pc = new Computer();
@@ -120,34 +119,6 @@ public class ComputerBean implements Serializable {
         this.pdv = pdv;
     }
 
-    public void carregar() throws pdvException {
-
-        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-        Boolean on = (Boolean) flash.get("on");
-        if (on != null && on == true) {
-            this.pc = (Computer) flash.get("pc");
-            this.idPdv = (Integer) flash.get("pdv");
-
-            pdv = daoPdv.buscarPorId(idPdv);
-
-            pc.setPdv(pdv);
-        }
-    }
-
-    public void apagarLos(Log logs) throws pdvException {
-        for (Log l : logsPc) {
-            if (l.equals(logs)) {
-                daoLog.excluir(logs);
-            }
-        }
-
-        this.logsPc.remove(logs);
-
-        if (logsPc.isEmpty()) {
-            setLogEstaVazio(true);
-        }
-    }
-
     public String gravarPc() throws pdvException {
         //pc.setLogs(this.logsPc);
 
@@ -157,7 +128,7 @@ public class ComputerBean implements Serializable {
         if (!logsPc.isEmpty()) {
 
             if (pc.getId() == null) {
-               // pc.setAtivo(Boolean.TRUE);
+                // pc.setAtivo(Boolean.TRUE);
                 dao.salvar(pc);
             } else {
                 dao.editar(pc);
@@ -190,9 +161,9 @@ public class ComputerBean implements Serializable {
         Boolean on = true;
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
 
-        flash.put("pc", this.pc);
+        flash.put("pc", pc);
+        flash.put("logs", logsPc); //novo
         flash.put("pdv", pc.getPdv().getId());
-
         flash.put("on", on);
 
         if (logsPc.isEmpty()) {
@@ -204,6 +175,35 @@ public class ComputerBean implements Serializable {
             return "formCaixa?faces-redirect=true";
         } else {
             return "formCaixaFilial?faces-redirect=true";
+        }
+    }
+
+    public void carregar() throws pdvException {
+
+        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        Boolean on = (Boolean) flash.get("on");
+        if (on != null && on == true) {
+            pc = (Computer) flash.get("pc");
+            this.logsPc = (List<Log>) flash.get("logs"); //novo
+            this.idPdv = (Integer) flash.get("pdv");
+
+            pdv = daoPdv.buscarPorId(idPdv);
+
+            pc.setPdv(pdv);
+        }
+    }
+
+    public void apagarLos(Log logs) throws pdvException {
+        for (Log l : logsPc) {
+            if (l.equals(logs)) {
+                daoLog.excluir(logs);
+            }
+        }
+
+        this.logsPc.remove(logs);
+
+        if (logsPc.isEmpty()) {
+            setLogEstaVazio(true);
         }
     }
 
@@ -258,8 +258,8 @@ public class ComputerBean implements Serializable {
     }
 
     public List<String> getTiposLogs() {
-        return Arrays.asList("Banco", "caixa Incluir", "caixa Troca", "caixa Baixa", "Conexão", "Hardware",  
-                                "SASIII", "Rede", "Site Receita", "Stress", "Windows");
+        return Arrays.asList("Banco", "caixa Incluir", "caixa Troca", "caixa Baixa", "Conexão", "Hardware",
+                "SASIII", "Rede", "Site Receita", "Stress", "Windows");
     }
 
     public void adicionarLog() throws pdvException {
@@ -279,6 +279,10 @@ public class ComputerBean implements Serializable {
     public List<Pdv> getListaPdvsFilial() throws pdvException {
         return daoPdv.listaPdvFilial();
     }
+    
+    public Integer getQtdLogPc(Computer computer) throws pdvException{
+        return daoLog.listaLogs(computer.getId()).size();
+    }
 
     public void ordenarLogs(String ordem) {
         if (ordem.equals("az")) {
@@ -291,5 +295,81 @@ public class ComputerBean implements Serializable {
     public void atualizarPdv(AjaxBehaviorEvent e) throws pdvException {
         pdv = daoPdv.buscarPorId(this.idPdv);
     }
+    
+    
+    //--------------------------------
+    
+        private PosTeste posTeste = new PosTeste();
+    private PosDao daoPos = new PosDao();
+    private String itemBandeira;
+    private String itemLogico;
+
+    public PosTeste getPosTeste() {
+        return posTeste;
+    }
+
+    public void setPosTeste(PosTeste posTeste) {
+        this.posTeste = posTeste;
+    }
+
+
+
+    public PosDao getDao() {
+        return daoPos;
+    }
+
+    public void setDao(PosDao dao) {
+        this.daoPos = dao;
+    }
+
+    public String getItemBandeira() {
+        return itemBandeira;
+    }
+
+    public void setItemBandeira(String itemBandeira) {
+        this.itemBandeira = itemBandeira;
+    }
+
+    public String getItemLogico() {
+        return itemLogico;
+    }
+
+    public void setItemLogico(String itemLogico) {
+        this.itemLogico = itemLogico;
+    }
+
+ 
+
+ 
+    public String dados(){
+        System.out.println("Logico: " + itemLogico + " /n Bandeira: " + itemBandeira);
+        return "Logico: " + itemLogico + " /n Bandeira: " + itemBandeira;
+    }
+
+    public String novoPos(){
+        this.posTeste = new PosTeste();
+        return "posTeste?faces-redirect=true";
+    }
+    
+    public String salvarTeste() throws pdvException {
+      
+        
+        if (this.posTeste.getId() == null) {
+           // Bandeira band = Bandeira.valueOf(itemBandeira);
+           System.out.println("Teste N° Lógico: " + this.posTeste.getLogico()); 
+           System.out.println("Teste itemBandeira: " + this.posTeste.getBandeira());
+            
+            //pos.setBand(this.itemBandeira);
+            //posTeste.setLogico(getItemLogico());
+            //posTeste.setBandeira(getItemBandeira());
+            daoPos.salvarTeste(this.posTeste);
+        } else {
+           // dao.editar(pos);
+        }
+        this.posTeste = new PosTeste();
+        
+        return "listaPos?faces-redirect=true";
+    }
+
 
 }

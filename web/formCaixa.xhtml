@@ -109,9 +109,8 @@
                         <p:message for="tlog"/>
 
                         <h:outputLabel value="Descreva Log:  " for="desc" />
-                        <p:inputTextarea id="desc" value="#{computadorBean.logItem}" rows="3" cols="50" required="true"
-                                         requiredMessage="Informe descrição do logg"
-                                         validatorMessage="Máximo de 500 caracteres!">
+                        <p:inputTextarea id="desc" value="#{computadorBean.logItem}" rows="3" cols="50" 
+                                            validatorMessage="Máximo de 500 caracteres!">
                             <f:validateLength maximum="500" />
                             <f:ajax event="blur" render="mensagem" />
                         </p:inputTextarea>

@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="/templates/modelo.xhtml">
+        <ui:define name="title">
+            POS - Cadastro/Edição/Substituição
+        </ui:define>
+
+        <f:metadata>
+            <f:viewAction action="#{posBean.carregar()}"/>
+        </f:metadata>
+
+        <ui:define name="content">
+            <p:importEnum type="br.pdv.model.enums.Bandeira" var="Bandeira" allSuffix="EnumValores"/>
+            <p:importEnum type="br.pdv.model.enums.Chip" var="Chip" allSuffix="EnumValores"/>
+            <p:importEnum type="br.pdv.model.enums.ModeloPos" var="ModeloPos" allSuffix="EnumValores"/>
+            <p:importEnum type="br.pdv.model.enums.Locale" var="Local" allSuffix="EnumValores"/>
+                        
+            <h:form id="formulario">
+                <p:messages id="mensagem" />
+                <p:fieldset class="fields" legend="POS - Cadastro/Update/Troca">
+                    <h:panelGrid columns="3">
+                        <p:outputLabel value="N°.Lógico " for="logico" />
+                        <p:inputText id="logico" value="#{posBean.pos.logico}" size="30"
+                                     required="true"
+                                     requiredMessage="Informe o N°.Lógico!"
+                                     validatorMessage="N°.Lógico, máximo de 25 caracteres">
+                            <f:validateLength minimum="2" maximum="25" />
+                            <f:ajax event="blur" render="mensagem" />
+                        </p:inputText>
+                        <p:message for="logico"/>
+
+                        <p:outputLabel value="Bandeira: " for="bandeira"/>
+                        <p:selectOneMenu id="bandeira" value="#{posBean.band}" required="true" requiredMessage="Secelione uma Bandeira!">
+                            <f:selectItems value="#{Bandeira.EnumValores}" var="item_bandeira"
+                                           itemValue="#{item_bandeira}" itemLabel="#{item_bandeira}" />                              
+                            <f:ajax event="blur"  render="mensagem" />
+                        </p:selectOneMenu>
+
+
+                        <p:message for="bandeira"/>
+
+                        <p:outputLabel value="Chip: " for="chip"/>
+                        <p:selectOneMenu id="chip" value="#{posBean.chip}" required="true" requiredMessage="Secelione um Chip!">
+                            <f:selectItems value="#{Chip.EnumValores}" var="item_chip" 
+                                           itemValue="#{item_chip}" itemLabel="#{item_chip}"/>
+                            <f:ajax event="blur" render="mensagem" />
+                        </p:selectOneMenu>
+                        <p:message for="chip"/>
+
+                        <p:outputLabel value="Modelo: " for="modelo"/>
+                        <p:selectOneMenu id="modelo" value="#{posBean.pos.modelo}">
+                            <f:selectItems value="#{ModeloPos.EnumValores}" var="item_modelo" 
+                                           itemValue="#{item_modelo}" itemLabel="#{item_modelo}"/>
+                            <f:ajax event="blur" render="mensagem" />
+                        </p:selectOneMenu>
+                        <p:message for="modelo"/>
+
+                        <p:outputLabel value="Local: " for="local"/>
+                        <p:selectOneMenu id="local" value="#{posBean.pos.locale}">
+                            <f:selectItems value="#{Local.EnumValores}" var="item_local" 
+                                           itemValue="#{item_local}" itemLabel="#{item_local}"/>
+                            <f:ajax event="blur" render="mensagem" />
+                        </p:selectOneMenu>
+                        <p:message for="local"/>
+
+                        <p:outputLabel value="N°.Série " for="ns" />
+                        <p:inputText id="ns" value="#{posBean.pos.ns}" size="30"
+                                     validatorMessage="Máximo de 25 caracteres!">
+                            <f:validateLength maximum="25" />
+                            <f:ajax event="blur" render="mensagem" />
+                        </p:inputText>
+                        <p:message for="ns"/>
+
+                        <p:outputLabel value="Data: " for="data"/>
+                        <p:calendar id="data" value="#{posBean.pos.incluida}" pattern="dd/MM/yyyy HH:mm:ss" >
+                            <f:convertDateTime for="dataLogs" pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo" type="localDateTime" />
+                            <f:ajax event="blur" render="mensagens"/>
+                        </p:calendar>
+                        <p:message for="data"/>
+                        
+                        <p:outputLabel value="Usuário" for="usuario"/>
+                        <p:selectOneMenu id="usuario" value="#{posBean.usuarioId}">
+                            <f:selectItems value="#{posBean.listaUsuarios}" var="usuario"
+                                           itemValue="#{usuario.id}" itemLabel="#{usuario.nome}"
+                                />
+                            <f:ajax event="blur" render="mensagem" />
+                        </p:selectOneMenu>
+                        <p:message for="usuario"/>
+
+                        <p:outputLabel value="Filial: " for="filial"/>
+                        <p:selectOneRadio id="filial" value="#{posBean.pos.filial}" unselectable="true">
+                            <f:selectItem itemLabel="Matriz" itemValue="0"/>
+                            <f:selectItem itemLabel="Filial" itemValue="1"/>
+                            <p:ajax update="filial" />
+                        </p:selectOneRadio>
+                        <p:message for="filial"/>
+
+                        <p:outputLabel value="Ativo" for="ativo"/>
+                        <p:selectOneRadio id="ativo" value="#{posBean.pos.ativo}" unselectable="true">
+                            <f:selectItem itemLabel="Sim" itemValue="true"/>
+                            <f:selectItem itemLabel="Não" itemValue="false"/>
+                            <p:ajax update="ativo"/>
+                        </p:selectOneRadio>
+                        <p:message for="ativo"/>
+
+                        <p:outputLabel value="Observação: " for="obs" />
+                        <p:inputTextarea id="obs" value="#{posBean.pos.obs}" rows="3" cols="100"
+                                         validatorMessage="Máximo de 500 caracteres!">
+                            <f:validateLength maximum="500" />
+                            <f:ajax event="blur" render="mensagem" />
+                        </p:inputTextarea>
+                        <p:message for="obs"/>                   
+
+                    </h:panelGrid>
+                    <br/>
+
+                    <p:commandButton id="salvar" value="Salvar" action="#{posBean.salvar()}"  immediate="true" />
+                    &nbsp;<p:commandButton value="Cancelar" action="listaPos?faces-redirect=true" immediate="true"/>
+
+                </p:fieldset>
+
+            </h:form>
+        </ui:define>
+        <ui:define name="footer" />
+    </ui:composition>
+</html>

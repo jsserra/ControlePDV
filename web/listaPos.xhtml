@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="/templates/modelo.xhtml">
+        <ui:define name="title">
+            POS
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="formularioTabelaPC">
+                <div id="cartoes">
+                    <div id="cielo" class="cartao">
+                        <h:graphicImage class="logoCartao" library="img" name="logoCielo.png"/>
+                        <br/>
+                        <a href="https://www.cielo.com.br/" target="blank" >www.cielo.com.br</a>
+                        <br/>
+                        <span>0800 570 0111 - 4002-5472 </span><br/>
+                        Diogo Lima Soares  (21) 98114-9249 <br/> diogol@cielo.com.br
+                    </div>
+                    <div id="rede" class="cartao">
+                        <h:graphicImage class="logoCartao" library="img" name="logoRede.png"/>
+                        <br/>
+                        <a href="https://www.userede.com.br/" target="blank" >www.userede.com.br</a>
+                        <br/>
+                        <span>0800 728 4433 </span><br/>                        
+                        Luciana Afonso de Lima  (21) 99702-7870 <br/>  luciana.lima@userede.com.br
+                        <br/>
+                    </div>
+                    <div id="getnet" class="cartao">
+                        <h:graphicImage class="logoCartao" library="img" name="logoGetnet.png" style="width: 120px;"/>
+                        <br/>
+                        <a href="https://www.santandergetnet.com.br/" target="blank" >www.santandergetnet.com.br</a>
+                        <br/>
+                        <span>0800-648-8000 </span> <br/>
+                        Gerente ? <br/><br/>
+
+                    </div>
+                </div>
+
+                <p:fieldset class="fields" legend="POS">
+                    &#9656; Senha administrativa RECEPÇãO &#10143;<span style="font-weight: bolder; font-size: 15px;"> 111213</span>
+                    &nbsp;&nbsp; &#9656; Senha administrativa WeB &#10143;<span style="font-weight: bolder; font-size: 15px;"> 0847</span>
+                    <hr>Matriz &#8674; </hr>
+                    <h:outputText value="#{posBean.qtdPosMatriz}" style="font-weight: bolder; font-size: 15px;" />
+                    ( cielo <h:outputText value="#{posBean.qtdPosMatrizCielo}" style="font-weight: bold"/> -
+                    rede <h:outputText value="#{posBean.qtdPosMatrizRede}" style="font-weight: bold"/> -
+                    getnet <h:outputText value="#{posBean.qtdPosMatrizGetnet}" style="font-weight: bold"/> )
+                    <br />
+                    <p:dataTable id="tabelaPC" value="#{posBean.listaPosMatriz}" var="pos" >
+
+                        <p:column width="90">
+                            <f:facet name="header">Nº.Lógico</f:facet>
+                            <center>
+                                <h:outputText value="#{pos.logico}" style="font-weight: bolder; font-size: 15px;" />
+                            </center>
+                        </p:column>
+
+                        <p:column width="75">
+                            <f:facet name="header">Bandeira</f:facet>
+                            <center>
+                                <h:outputText value="#{pos.bandeira}" style="font-weight: bold; font-size: 15px;"/>
+                            </center>
+                        </p:column>
+                        <p:column width="60">
+                            <f:facet name="header">Chip</f:facet>
+                            <center>
+                                <h:outputText value="#{pos.chip}" style="font-weight: bold;"/>
+                            </center>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Modelo</f:facet>
+                            <h:outputText value="#{pos.modelo}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">NS</f:facet>
+                            <h:outputText value="#{pos.ns}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Data</f:facet>
+                            <h:outputText id="dataEntrada" value="#{pos.incluida}" >
+                                <f:convertDateTime for="dataEntrada" pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo" type="localDateTime"/>
+                            </h:outputText>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">Local</f:facet>
+                            <h:outputText value="#{pos.locale}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Usuário</f:facet>
+                            <h:outputText value="#{pos.usuario.nome}"/>
+                        </p:column>
+                        <p:column headerText="Tools">
+                            <center>
+                                <p:commandButton action="#{posBean.editar(pos)}" immediate="true" icon="fa fa-fw fa-edit"/>
+                                <p:commandButton action="#{posBean.editar(pos)}" immediate="true" icon="fa fa-fw fa-exchange"/>
+                                <p:commandButton action="#{posBean.desativar(pos)}" immediate="true" icon="fa fa-fw fa-remove"/>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                    <br/><br/>
+
+                    <!-- Table Filil -->
+                    <hr>Filial &#8674; </hr>
+                    <h:outputText value="#{posBean.qtdPosFilial}" style="font-weight: bolder; font-size: 15px;" />
+                    ( cielo <h:outputText value="#{posBean.qtdPosFilialCielo}" style="font-weight: bold"/> -
+                    rede <h:outputText value="#{posBean.qtdPosFilialRede}" style="font-weight: bold"/> -
+                    getnet <h:outputText value="#{posBean.qtdPosFilialGetnet}" style="font-weight: bold"/> )
+                    <br />
+                    <p:dataTable id="tabelaPCFilial" value="#{posBean.listaPosFilial}" var="pos" >
+
+                        <p:column width="90">
+                            <f:facet name="header">Nº.Lógico</f:facet>
+                            <center>
+                                <h:outputText value="#{pos.logico}" style="font-weight: bolder; font-size: 15px;" />
+                            </center>
+                        </p:column>
+
+                        <p:column width="75">
+                            <f:facet name="header">Bandeira</f:facet>
+                            <center>
+                                <h:outputText value="#{pos.bandeira}" style="font-weight: bold; font-size: 15px;"/>
+                            </center>
+                        </p:column>
+                        <p:column width="60">
+                            <f:facet name="header">Chip</f:facet>
+                            <center>
+                                <h:outputText value="#{pos.chip}" style="font-weight: bold;"/>
+                            </center>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Modelo</f:facet>
+                            <h:outputText value="#{pos.modelo}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">NS</f:facet>
+                            <h:outputText value="#{pos.ns}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Data</f:facet>
+                            <h:outputText id="dataEntrada" value="#{pos.incluida}" >
+                                <f:convertDateTime for="dataEntrada" pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo" type="localDateTime"/>
+                            </h:outputText>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">Local</f:facet>
+                            <h:outputText value="#{pos.locale}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Usuário</f:facet>
+                            <h:outputText value="#{pos.usuario.nome}"/>
+                        </p:column>
+                        <p:column headerText="Tools">
+                            <center>
+                                <p:commandButton action="#{posBean.editar(pos)}" immediate="true" icon="fa fa-fw fa-edit"/>
+                                <p:commandButton icon="fa fa-fw fa-exchange"/>
+                                <p:commandButton action="#{posBean.desativar(pos)}" immediate="true" icon="fa fa-fw fa-remove"/>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+
+                </p:fieldset>
+                <br/>
+                &nbsp;<p:commandButton action="#{posBean.novoPos()}" value="Cadastrar POS " immediate="true"/>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>

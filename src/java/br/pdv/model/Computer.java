@@ -3,11 +3,10 @@ package br.pdv.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,7 +45,7 @@ public class Computer implements Serializable {
     private boolean ativo = true;
 
     @OneToMany(mappedBy = "pc", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Log> logs = new ArrayList<>();
+    private Set<Log> logs;
     
     @OneToOne
     @JoinColumn(name="idpdv")
@@ -60,14 +59,18 @@ public class Computer implements Serializable {
         this.pdv = pdv;
     }
 
-    public Computer(String nome, String processador, String memoria, String hd, String obs, boolean ativo) {
+    public Computer(String nome, String tag, String processador, String memoria, String hd, String offboard, String obs, Set<Log> logs, Pdv pdv) {
         this.nome = nome;
+        this.tag = tag;
         this.processador = processador;
         this.memoria = memoria;
         this.hd = hd;
+        this.offboard = offboard;
         this.obs = obs;
-        this.ativo = ativo;
-    }  
+        this.logs = logs;
+        this.pdv = pdv;
+    }    
+    
     
     public Integer getId() {
         return id;
@@ -141,14 +144,13 @@ public class Computer implements Serializable {
         this.ativo = ativo;
     }
 
-    public List<Log> getLogs() {
+    public Set<Log> getLogs() {
         return logs;
     }
 
-    public void setLogs(List<Log> logs) {
-        logs.clear();
-        this.logs.addAll(logs);
-    }
+    public void setLogs(Set<Log> logs) {
+        this.logs = logs;
+    } 
 
     public Pdv getPdv() {
         return pdv;
