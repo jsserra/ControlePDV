@@ -1,11 +1,10 @@
 package br.pdv.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,6 +38,9 @@ public class Computer implements Serializable {
     private String hd;
     
     private String offboard;
+    
+    @Column(name="so")
+    private String so;
 
     private String obs;
     
@@ -59,13 +61,14 @@ public class Computer implements Serializable {
         this.pdv = pdv;
     }
 
-    public Computer(String nome, String tag, String processador, String memoria, String hd, String offboard, String obs, Set<Log> logs, Pdv pdv) {
+    public Computer(String nome, String tag, String processador, String memoria, String hd, String offboard, String so, String obs, Set<Log> logs, Pdv pdv) {
         this.nome = nome;
         this.tag = tag;
         this.processador = processador;
         this.memoria = memoria;
         this.hd = hd;
         this.offboard = offboard;
+        this.so = so;
         this.obs = obs;
         this.logs = logs;
         this.pdv = pdv;
@@ -126,7 +129,15 @@ public class Computer implements Serializable {
 
     public void setOffboard(String offboard) {
         this.offboard = offboard;
-    }   
+    }  
+
+    public String getSo() {
+        return so;
+    }
+
+    public void setSo(String so) {
+        this.so = so;
+    }       
     
     public String getObs() {
         return obs;

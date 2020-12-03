@@ -46,6 +46,10 @@
                             <f:facet name="header">HD</f:facet>
                             <h:outputText value="#{caixa.hd}" />
                         </p:column>
+                        <p:column width="110" >
+                            <f:facet name="header">Windows</f:facet>
+                            <h:outputText value="#{caixa.so}"/>
+                        </p:column>
                         <p:column width="30" style="text-align: center;">                     
                             <f:facet name="header">LOGs</f:facet>
                             <h:outputText value="#{computadorBean.getQtdLogPc(caixa)}" />

@@ -73,6 +73,13 @@
                             <f:ajax event="blur" render="mensagem" />
                         </p:inputTextarea>
                         <p:message for="placa"/>
+                        
+                        <p:outputLabel value="Windows: " for="so"/>
+                         <p:selectOneMenu id="so" value="#{computadorBean.pc.so}" >
+                            <f:selectItems value="#{computadorBean.SO}" var="so" itemLabel="#{so}" itemValue="#{so}" />                        
+                        <f:ajax event="blur" render="mensagem" />
+                        </p:selectOneMenu>
+                        <p:message for="so"/>
 
                         <p:outputLabel value="Observação: " for="obs" />
                         <p:inputTextarea id="obs" value="#{computadorBean.pc.obs}" rows="2" cols="50"

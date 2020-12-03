@@ -52,6 +52,7 @@ public class ComputerBean implements Serializable {
     private boolean logEstaVazio = true;
     private String logItem;
     private String logItemTipo;
+    private String windows;
 
     private Integer idPdv;
 
@@ -119,11 +120,21 @@ public class ComputerBean implements Serializable {
         this.pdv = pdv;
     }
 
+    public String getWindows() {
+        return windows;
+    }
+
+    public void setWindows(String windows) {
+        this.windows = windows;
+    }
+    
+    
+
     public String gravarPc() throws pdvException {
         //pc.setLogs(this.logsPc);
 
         pdv = daoPdv.buscarPorId(this.idPdv);
-        pc.setPdv(pdv);
+        pc.setPdv(pdv);       
 
         if (!logsPc.isEmpty()) {
 
@@ -161,9 +172,10 @@ public class ComputerBean implements Serializable {
         Boolean on = true;
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
 
-        flash.put("pc", pc);
+        flash.put("pc", this.pc);
         flash.put("logs", logsPc); //novo
         flash.put("pdv", pc.getPdv().getId());
+        //flash.put("so", windows);
         flash.put("on", on);
 
         if (logsPc.isEmpty()) {
@@ -183,9 +195,10 @@ public class ComputerBean implements Serializable {
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         Boolean on = (Boolean) flash.get("on");
         if (on != null && on == true) {
-            pc = (Computer) flash.get("pc");
+            this.pc = (Computer) flash.get("pc");
             this.logsPc = (List<Log>) flash.get("logs"); //novo
             this.idPdv = (Integer) flash.get("pdv");
+           // this.windows = (String) flash.get("so");
 
             pdv = daoPdv.buscarPorId(idPdv);
 
@@ -260,6 +273,10 @@ public class ComputerBean implements Serializable {
     public List<String> getTiposLogs() {
         return Arrays.asList("Banco", "caixa Incluir", "caixa Troca", "caixa Baixa", "Conexão", "Hardware",
                 "SASIII", "Rede", "Site Receita", "Stress", "Windows");
+    }
+    
+    public List<String> getSO(){
+        return Arrays.asList("win7 pro x86","win7 pro x64","win10 pro x86", "win10 pro x64");
     }
 
     public void adicionarLog() throws pdvException {

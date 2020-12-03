@@ -75,6 +75,13 @@
                         </p:inputTextarea>
                         <p:message for="placa"/>
 
+                        <p:outputLabel value="Windows: " for="so"/>
+                        <p:selectOneMenu id="so" value="#{computadorBean.pc.so}" >
+                            <f:selectItems value="#{computadorBean.SO}" var="so" itemLabel="#{so}" itemValue="#{so}" />                        
+                            <f:ajax event="blur" render="mensagem" />
+                        </p:selectOneMenu>
+                        <p:message for="so"/>
+
                         <p:outputLabel value="Observação: " for="obs" />
                         <p:inputTextarea id="obs" value="#{computadorBean.pc.obs}" rows="2" cols="50"
                                          validatorMessage="Máximo de 255 caracteres!">
@@ -116,11 +123,11 @@
                             <f:validateLength maximum="500" />
                             <f:ajax event="blur" render="mensagem" />
                         </p:inputTextarea>
-                            <p:message for="desc"/>
+                        <p:message for="desc"/>
 
-                            <p:commandButton action="#{computadorBean.adicionarLog()}" value="Inserir Log" immediate="true">
-                                <f:ajax execute="tlog desc" render="tabelaLog tlog desc"/>
-                            </p:commandButton>
+                        <p:commandButton action="#{computadorBean.adicionarLog()}" value="Inserir Log" immediate="true">
+                            <f:ajax execute="tlog desc" render="tabelaLog tlog desc"/>
+                        </p:commandButton>
                     </h:panelGrid> 
                 </p:fieldset>
                 <br />
